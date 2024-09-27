@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+  ~ @author    Tigren Solutions <info@tigren.com>
+  ~ @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+  ~ @license   Open Software License ("OSL") v. 3.0
+  ~
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Tigren_CustomerGroupCatalog::rule" title="Customer Rule" module="Tigren_CustomerGroupCatalog"
+             sortOrder="10" action="tigrencustomergroupcatalog/rule" resource="Tigren_CustomerGroupCatalog::rule"/>
+    </menu>
+</config>

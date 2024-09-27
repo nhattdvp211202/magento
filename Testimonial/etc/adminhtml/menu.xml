@@ -1,0 +1,7 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Tigren_Testimonial::testimonial_manager" title="Testimonial Manager" module="Tigren_Testimonial" resource="Tigren_Testimonial::testimonial_manager"/>
+        <add id="Tigren_Testimonial::list_testimonial" title="List Questions" module="Tigren_Testimonial" action="testimonial" resource="Tigren_Testimonial::testimonial_manager" parent="Tigren_Testimonial::testimonial_manager"/>
+        <add id="Tigren_Testimonial::new_testimonial" title="New Question" module="Tigren_Testimonial" action="testimonial/index/new" resource="Tigren_Testimonial::save" parent="Tigren_Testimonial::testimonial_manager"/>
+    </menu>
+</config>
