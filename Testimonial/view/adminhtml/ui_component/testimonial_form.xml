@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ @author    Tigren Solutions <info@tigren.com>
+  ~ @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+  ~ @license   Open Software License ("OSL") v. 3.0
+  ~
+  -->
+
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">testimonial_form.testimonial_form_data_source</item>
-            <item name="deps" xsi:type="string">testimonial_form.testimonial_form_data_source</item>
+            <item name="provider" xsi:type="string">testimonial_form.testimonial_listing_data_source</item>
+            <item name="deps" xsi:type="string">testimonial_form.testimonial_listing_data_source</item>
         </item>
         <item name="label" xsi:type="string" translate="true">Testimonial Information</item>
         <item name="config" xsi:type="array">
@@ -23,7 +30,7 @@
     <dataSource name="testimonial_form_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Tigren\Testimonial\Model\Testimonial\DataProvider</argument>
-            <argument name="name" xsi:type="string">testimonial_form_data_source</argument>
+            <argument name="name" xsi:type="string">testimonial_listing_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">id</argument>
             <argument name="requestFieldName" xsi:type="string">id</argument>
             <argument name="data" xsi:type="array">

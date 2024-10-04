@@ -1,4 +1,10 @@
 <?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\Testimonial\Controller\Adminhtml\Index\Image;
 
@@ -10,9 +16,10 @@ class Upload extends \Magento\Backend\App\Action
     protected $imageUploader;
 
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
+        \Magento\Backend\App\Action\Context  $context,
         \Magento\Catalog\Model\ImageUploader $imageUploader
-    ) {
+    )
+    {
         parent::__construct($context);
         $this->imageUploader = $imageUploader;
     }

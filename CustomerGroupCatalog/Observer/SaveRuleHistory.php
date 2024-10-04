@@ -98,9 +98,14 @@ class SaveRuleHistory implements ObserverInterface
      */
     private function getAppliedRuleIdForProduct($productId)
     {
+        $currentTime = date('Y-m-d H:i:s');
+
+        // Lấy các quy tắc đang active và có sản phẩm trong danh sách
         $ruleCollection = $this->ruleCollectionFactory->create()
             ->addFieldToFilter('active', 1)
             ->addFieldToFilter('products', ['finset' => $productId])
+            ->addFieldToFilter('start_time', ['lteq' => $currentTime])
+            ->addFieldToFilter('end_time', ['gteq' => $currentTime])
             ->setOrder('priority', 'ASC')
             ->setPageSize(1);
 

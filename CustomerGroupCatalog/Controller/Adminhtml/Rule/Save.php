@@ -9,7 +9,6 @@
 namespace Tigren\CustomerGroupCatalog\Controller\Adminhtml\Rule;
 
 use Tigren\CustomerGroupCatalog\Model\RuleFactory;
-use Tigren\CustomerGroupCatalog\Model\ResourceModel\Rule\CollectionFactory;
 use Magento\Backend\App\Action;
 
 /**
@@ -23,23 +22,15 @@ class Save extends Action
     private $ruleFactory;
 
     /**
-     * @var CollectionFactory
-     */
-    private $collectionFactory;
-
-    /**
      * @param Action\Context $context
      * @param RuleFactory $ruleFactory
-     * @param CollectionFactory $collectionFactory
      */
     public function __construct(
         Action\Context    $context,
-        RuleFactory       $ruleFactory,
-        CollectionFactory $collectionFactory
+        RuleFactory       $ruleFactory
     ) {
         parent::__construct($context);
         $this->ruleFactory = $ruleFactory;
-        $this->collectionFactory = $collectionFactory;
     }
 
     /**
@@ -56,46 +47,31 @@ class Save extends Action
         }
 
         // Lấy rule_id từ dữ liệu
-        $id = !empty($data['rule_id']) ? $data['rule_id'] : null;
+        $id = $data['rule_id'] ?? null;
 
         // Tạo hoặc load bản ghi cần chỉnh sửa
         $rule = $this->ruleFactory->create();
-
         if ($id) {
             $rule->load($id);
         }
 
         try {
-            $customerGroups = is_array($data['customer_group']) ? $data['customer_group'] : [$data['customer_group']];
-            $products = is_array($data['products']) ? $data['products'] : [$data['products']];
+            $customerGroups = (array) $data['customer_group'];
+            $productsString = implode(',', (array) $data['products']);
 
-            // Lưu từng nhóm khách hàng và sản phẩm
             foreach ($customerGroups as $customerGroup) {
-                foreach ($products as $product) {
-                    $newData = [
-                        'name' => $data['name'],
-                        'description' => $data['description'],
-                        'store' => $data['store'],
-                        'discount_amount' => $data['discount_amount'],
-                        'start_time' => $data['start_time'],
-                        'end_time' => $data['end_time'],
-                        'customer_group' => $customerGroup,
-                        'products' => $product,
-                        'priority' => $data['priority'],
-                        'active' => $data['active'],
-                    ];
-
-                    // Nếu đang chỉnh sửa, cập nhật dữ liệu cho bản ghi
-                    if ($id) {
-                        $rule->addData($newData);
-                        $rule->save();
-                    } else {
-                        // Tạo mới bản ghi
-                        $newRule = $this->ruleFactory->create();
-                        $newRule->setData($newData);
-                        $newRule->save();
-                    }
-                }
+                $rule->setData([
+                    'name' => $data['name'],
+                    'description' => $data['description'],
+                    'store' => $data['store'],
+                    'discount_amount' => $data['discount_amount'],
+                    'start_time' => $data['start_time'],
+                    'end_time' => $data['end_time'],
+                    'customer_group' => $customerGroup,
+                    'products' => $productsString,
+                    'priority' => $data['priority'],
+                    'active' => $data['active'],
+                ])->save();
             }
 
             $this->messageManager->addSuccessMessage(__('You saved the rule.'));

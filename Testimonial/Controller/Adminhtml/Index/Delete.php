@@ -1,4 +1,10 @@
 <?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\Testimonial\Controller\Adminhtml\Index;
 
@@ -12,8 +18,9 @@ class Delete extends Action
 
     public function __construct(
         Action\Context $context,
-        ReindexHelper $reindexHelper
-    ) {
+        ReindexHelper  $reindexHelper
+    )
+    {
         $this->reindexHelper = $reindexHelper;
         parent::__construct($context);
     }

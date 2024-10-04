@@ -1,4 +1,10 @@
 <?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\Testimonial\Controller\Adminhtml\Index;
 
@@ -10,9 +16,10 @@ class Index extends \Magento\Backend\App\Action
     protected $resultPageFactory;
 
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
+        \Magento\Backend\App\Action\Context        $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory
-    ) {
+    )
+    {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
     }

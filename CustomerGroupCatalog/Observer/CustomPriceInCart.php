@@ -52,24 +52,36 @@ class CustomPriceInCart implements ObserverInterface
         $ruleCollection = $this->ruleCollectionFactory->create()
             ->addFieldToFilter('products', $productId)
             ->addFieldToFilter('customer_group', $customerGroupId)
-            ->addFieldToFilter('start_time', ['lteq' => date('Y-m-d H:i:s')])
-            ->addFieldToFilter('end_time', ['gteq' => date('Y-m-d H:i:s')])
             ->addFieldToFilter('active', 1)
-            ->setOrder('priority', 'ASC');
+            ->setOrder('priority', 'ASC'); // Lấy rule có độ ưu tiên cao nhất trước
 
-        $rule = $ruleCollection->getFirstItem();
+        $currentTime = date('Y-m-d H:i:s');
 
-        if ($rule && $rule->getId()) {
-            if ($this->checkRuleApplicability($rule, $item)) {
-                $discountAmount = $this->calculateDiscount($rule, $item->getPrice());
+        /** @var \Tigren\CustomerGroupCatalog\Model\Rule $applicableRule */
+        $applicableRule = null;
+
+        // Duyệt qua tất cả các rule và chỉ lấy rule đầu tiên có thời gian hợp lệ
+        foreach ($ruleCollection as $rule) {
+            if ($rule->getStartTime() <= $currentTime && $rule->getEndTime() >= $currentTime) {
+                $applicableRule = $rule;
+                break;
+            }
+        }
+
+        // Nếu tìm thấy rule hợp lệ
+        if ($applicableRule && $applicableRule->getId()) {
+            if ($this->checkRuleApplicability($applicableRule, $item)) {
+                $discountAmount = $this->calculateDiscount($applicableRule, $item->getPrice());
                 $discountedPrice = $item->getPrice() - $discountAmount;
 
+                // Áp dụng giá giảm cho item
                 $item->setCustomPrice($discountedPrice);
                 $item->setOriginalCustomPrice($discountedPrice);
                 $item->getProduct()->setIsSuperMode(true);
             }
         }
     }
+
 
     /**
      * Check rule applicability

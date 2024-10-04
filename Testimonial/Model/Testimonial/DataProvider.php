@@ -1,4 +1,10 @@
 <?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\Testimonial\Model\Testimonial;
 
@@ -8,27 +14,51 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
 
+    /**
+     * @var \Tigren\Testimonial\Model\ResourceModel\Testimonial\Collection
+     */
     protected $collection;
+    /**
+     * @var DataPersistorInterface
+     */
     protected $dataPersistor;
+    /**
+     * @var
+     */
     protected $loadedData;
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
     protected $storeManager;
 
+    /**
+     * @param $name
+     * @param $primaryFieldName
+     * @param $requestFieldName
+     * @param CollectionFactory $testimonialCollectionFactory
+     * @param DataPersistorInterface $dataPersistor
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param array $meta
+     * @param array $data
+     */
     public function __construct(
-        $name,
-        $primaryFieldName,
-        $requestFieldName,
-        CollectionFactory $testimonialCollectionFactory,
-        DataPersistorInterface $dataPersistor,
+        string                                     $name, // Khai báo kiểu string cho $name
+        string                                     $primaryFieldName, // Khai báo kiểu string cho $primaryFieldName
+        string                                     $requestFieldName, // Khai báo kiểu string cho $requestFieldName
+        CollectionFactory                          $testimonialCollectionFactory,
+        DataPersistorInterface                     $dataPersistor,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        array $meta = [],
-        array $data = []
-    ) {
+        array                                      $meta = [],
+        array                                      $data = []
+    )
+    {
         $this->collection = $testimonialCollectionFactory->create();
         $this->dataPersistor = $dataPersistor;
         $this->storeManager = $storeManager;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
         $this->meta = $this->prepareMeta($this->meta);
     }
+
 
     /**
      * Prepares Meta
@@ -60,7 +90,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
                     [
                         'name' => $image,
                         'url' => $this->storeManager->getStore()
-                            ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA)
+                                ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA)
                             . 'testimonial/image/' . $image
                     ]
                 ];

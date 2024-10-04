@@ -1,33 +1,38 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
-        <arguments>
-            <argument name="dataSource" xsi:type="string">testimonials_listing</argument>
-        </arguments>
-    </type>
+<!--
+  ~ @author    Tigren Solutions <info@tigren.com>
+  ~ @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+  ~ @license   Open Software License ("OSL") v. 3.0
+  ~
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
     <type name="Tigren\Testimonial\Controller\Adminhtml\Index\Save">
         <arguments>
-            <argument name="dataProcessor" xsi:type="object">Tigren\Testimonial\Controller\Adminhtml\Index\PostDataProcessor</argument>
-        </arguments>
-    </type>
-
-    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
-        <arguments>
-            <argument name="dataSource" xsi:type="string">testimonial_form</argument>
-        </arguments>
-    </type>
-    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
-        <arguments>
-            <argument name="collections" xsi:type="array">
-                <item name="testimonial_listing_data_source" xsi:type="string">Tigren\Testimonial\Model\ResourceModel\Testimonial\Grid\Collection</item>
+            <argument name="dataProcessor" xsi:type="object">
+                Tigren\Testimonial\Controller\Adminhtml\Index\PostDataProcessor
             </argument>
         </arguments>
     </type>
 
-    <virtualType name="Tigren\Testimonial\Model\ResourceModel\Testimonial\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="testimonial_listing_data_source" xsi:type="string">
+                    Tigren\Testimonial\Model\ResourceModel\Testimonial\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Tigren\Testimonial\Model\ResourceModel\Testimonial\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">testimonial</argument>
-            <argument name="resourceModel" xsi:type="string">Tigren\Testimonial\Model\ResourceModel\Testimonial</argument>
+            <argument name="resourceModel" xsi:type="string">Tigren\Testimonial\Model\ResourceModel\Testimonial
+            </argument>
         </arguments>
     </virtualType>
     <virtualType name="Tigren\Testimonial\TestimonialImageUpload" type="Magento\Catalog\Model\ImageUploader">

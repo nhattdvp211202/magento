@@ -1,4 +1,10 @@
 <?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\Testimonial\Ui\Component\Listing\Columns;
 
@@ -8,16 +14,28 @@ use Magento\Framework\View\Element\UiComponent\ContextInterface;
 class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
 {
 
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
     protected $storeManager;
 
+    /**
+     * @param ContextInterface $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\UrlInterface $urlBuilder
+     * @param array $components
+     * @param array $data
+     */
     public function __construct(
-        ContextInterface $context,
-        UiComponentFactory $uiComponentFactory,
+        ContextInterface                           $context,
+        UiComponentFactory                         $uiComponentFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Framework\UrlInterface $urlBuilder,
-        array $components = [],
-        array $data = []
-    ) {
+        \Magento\Framework\UrlInterface            $urlBuilder,
+        array                                      $components = [],
+        array                                      $data = []
+    )
+    {
         parent::__construct($context, $uiComponentFactory, $components, $data);
         $this->storeManager = $storeManager;
         $this->urlBuilder = $urlBuilder;
@@ -37,8 +55,8 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
                 $url = '';
                 if ($item[$fieldName] != '') {
                     $url = $this->storeManager->getStore()->getBaseUrl(
-                        \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
-                    ) . 'testimonial/images/' . $item[$fieldName];
+                            \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
+                        ) . 'testimonial/images/' . $item[$fieldName];
                 }
 
                 // Add image with link and alternative text

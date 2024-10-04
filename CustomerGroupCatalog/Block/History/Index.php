@@ -8,12 +8,16 @@
 
 namespace Tigren\CustomerGroupCatalog\Block\History;
 
+use Magento\Customer\Model\SessionFactory;
+use Magento\TestFramework\Catalog\Model\Indexer\Category\Product\Action\Full;
+
 class Index extends \Magento\Framework\View\Element\Template
 {
     /**
      * @var \Tigren\CustomerGroupCatalog\Model\RuleHistoryFactory
      */
     protected $ruleHistoryFactory;
+    protected $customerSessionFactory;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -23,10 +27,18 @@ class Index extends \Magento\Framework\View\Element\Template
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Tigren\CustomerGroupCatalog\Model\RuleHistoryFactory $ruleHistoryFactory,
+        SessionFactory $customerSessionFactory,
         array $data = []
     ) {
         $this->ruleHistoryFactory = $ruleHistoryFactory;
+        $this->customerSessionFactory = $customerSessionFactory;
         parent::__construct($context, $data);
+    }
+
+    public function getCustomerId()
+    {
+        $customerSession = $this->customerSessionFactory->create();
+        return $customerSession->getCustomer()->getId();
     }
 
     /**
@@ -34,7 +46,12 @@ class Index extends \Magento\Framework\View\Element\Template
      */
     public function getRuleHistory()
     {
-        $collection = $this->ruleHistoryFactory->create()->getCollection();
-        return $collection;
+        $customerId = $this->getCustomerId();
+        if ($customerId) {
+            $collection = $this->ruleHistoryFactory->create()->getCollection();
+            $collection->addFieldToFilter('customer_id', $customerId); // Giả sử bạn có trường customer_id trong bảng
+            return $collection;
+        }
+        return []; // Trả về mảng rỗng nếu không có customer ID
     }
 }

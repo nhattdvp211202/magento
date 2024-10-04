@@ -1,4 +1,10 @@
 <?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\Testimonial\Ui\Component\Listing\Columns;
 
@@ -15,20 +21,38 @@ class Actions extends \Magento\Ui\Component\Listing\Columns\Column
      * Url path
      */
     const TESTIMONIAL_URL_PATH_EDIT = 'testimonial/index/edit';
+    /**
+     *
+     */
     const TESTIMONIAL_URL_PATH_DELETE = 'testimonial/index/delete';
 
+    /**
+     * @var UrlInterface
+     */
     protected $urlBuilder;
 
+    /**
+     * @var mixed|string
+     */
     private $editUrl;
 
+    /**
+     * @param ContextInterface $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param UrlInterface $urlBuilder
+     * @param array $components
+     * @param array $data
+     * @param $editUrl
+     */
     public function __construct(
-        ContextInterface $context,
+        ContextInterface   $context,
         UiComponentFactory $uiComponentFactory,
-        UrlInterface $urlBuilder,
-        array $components = [],
-        array $data = [],
-        $editUrl = self::TESTIMONIAL_URL_PATH_EDIT
-    ) {
+        UrlInterface       $urlBuilder,
+        array              $components = [],
+        array              $data = [],
+                           $editUrl = self::TESTIMONIAL_URL_PATH_EDIT
+    )
+    {
         $this->urlBuilder = $urlBuilder;
         $this->editUrl = $editUrl;
         parent::__construct($context, $uiComponentFactory, $components, $data);
