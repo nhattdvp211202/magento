@@ -1,0 +1,15 @@
+type Query {
+    getTestimonials: [TestimonialOutput] @resolver(class: "Tigren\\Testimonial\\Model\\Resolver\\GetTestimonials")
+}
+
+type TestimonialOutput {
+    id: Int
+    name: String
+    email: String
+    message: String
+    company: String
+    rating: Int
+    image: String
+    status: String
+    created_at: String
+}

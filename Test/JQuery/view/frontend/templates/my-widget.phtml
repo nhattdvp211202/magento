@@ -1,0 +1,15 @@
+<div id="my-widget">
+    <p><?= __('Click the button JQuery Widget.') ?></p>
+    <button id="click" data-role="widget-button"><?= __('Click Me') ?></button>
+</div>
+
+<!-- Sử dụng x-magento-init để khởi tạo widget -->
+<script type="text/x-magento-init">
+    {
+        "#click": {
+            "Tigren_JQuery/js/my-widget": {
+                "message": "This is a custom message from your jQuery widget!"
+            }
+        }
+    }
+</script>

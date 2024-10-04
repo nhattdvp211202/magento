@@ -1,0 +1,58 @@
+<?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
+
+$rule = $block->getRuleInfo();
+?>
+
+<style>
+    .rule-info {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #dddddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .rule-info h1 {
+        text-align: center;
+        color: #007bdb;
+    }
+
+    .rule-info p {
+        font-size: 1.2em;
+        margin: 10px 0;
+        color: #333;
+    }
+
+    .rule-info .label {
+        font-weight: bold;
+        color: #007bdb;
+    }
+
+    .no-rule {
+        text-align: center;
+        font-size: 1.5em;
+        color: #ff0000;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="rule-info">
+    <?php if (!empty($rule)): ?>
+        <p><span class="label"><?php echo __('Rule ID: ') ?></span><?php echo $this->escapeHtml($rule['rule_id']); ?></p>
+        <p><span class="label"><?php echo __('Rule Name: ') ?></span><?php echo $this->escapeHtml($rule['name']); ?></p>
+        <p><span class="label"><?php echo __('Description: ') ?></span><?php echo $this->escapeHtml($rule['description']); ?></p>
+        <p><span class="label"><?php echo __('Discount Amount (%): ') ?></span><?php echo $this->escapeHtml($rule['discount_amount']); ?></p>
+        <p><span class="label"><?php echo __('Start Time: ') ?></span><?php echo $this->escapeHtml($rule['start_time']); ?></p>
+        <p><span class="label"><?php echo __('End Time: ') ?></span><?php echo $this->escapeHtml($rule['end_time']); ?></p>
+    <?php else: ?>
+        <p class="no-rule"><?php echo __('No rule information found.'); ?></p>
+    <?php endif; ?>
+</div>

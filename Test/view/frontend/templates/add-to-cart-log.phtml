@@ -1,12 +1,7 @@
-<?php
-// Mã này có thể bỏ qua, vì JavaScript sẽ tự động được thêm vào layout
-?>
-<script type="text/x-magento-init">
-    {
-    "*": {
-        "Tigren_Test/js/add-to-cart-log": {
-            "message": "Sản phẩm đã được thêm vào giỏ hàng!"
-        }
-    }
-}
+<script>
+    require(['Tigren_Test/js/add-to-cart-log'], function(addToCartLog) {
+        addToCartLog({
+            message: 'Sản phẩm đã được thêm vào giỏ hàng!'
+        });
+    });
 </script>

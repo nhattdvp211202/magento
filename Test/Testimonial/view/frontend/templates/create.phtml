@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form với Xem Trước Ảnh</title>
+    <style>
+        form {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="number"],
+        form textarea,
+        form input[type="file"] {
+            width: 100%;
+            padding: 0.5em;
+            margin-bottom: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        form textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        form button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.75em 1.5em;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 1em
+        }
+
+        form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        form input[type="hidden"] {
+            display: none;
+        }
+
+        .image-preview {
+            margin-top: 1em;
+            max-width: 100%;
+            max-height: 150px;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: none;
+
+        }
+    </style>
+</head>
+
+<body>
+<form action="<?= $block->getFormAction() ?>" method="post" enctype="multipart/form-data">
+    <label for="name"><?= __('Name') ?>:</label>
+    <input type="text" name="name" id="name" required/>
+
+    <label for="email"><?= __('Email') ?>:</label>
+    <input type="email" name="email" id="email" required/>
+
+    <label for="message"><?= __('Message') ?>:</label>
+    <textarea name="message" id="message" required></textarea>
+
+    <label for="company"><?= __('Company') ?>:</label>
+    <input type="text" name="company" id="company"/>
+
+    <label for="rating"><?= __('Rating') ?>:</label>
+    <input type="number" name="rating" id="rating" min="1" max="5" required/>
+
+    <label for="image"><?= __('Image') ?>:</label>
+    <input type="file" name="image" id="image" accept="image/*"/>
+
+    <!-- Thêm thẻ img để hiển thị ảnh xem trước -->
+    <img id="image-preview" class="image-preview" alt="Xem trước ảnh"/>
+
+    <input type="hidden" name="status" value="1"/>
+
+    <button type="submit"><?= __('Submit') ?></button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const imageInput = document.getElementById('image');
+        const imagePreview = document.getElementById('image-preview');
+
+        imageInput.addEventListener('change', function () {
+            const file = imageInput.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.src = '';
+                imagePreview.style.display = 'none';
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

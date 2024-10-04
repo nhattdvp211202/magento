@@ -1,4 +1,3 @@
-// app/code/Vendor/ModuleName/view/frontend/requirejs-config.js
 var config = {
     map: {
         '*': {

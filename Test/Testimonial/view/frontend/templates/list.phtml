@@ -1,0 +1,90 @@
+<a href="<?= $block->getCreateNewTestimonialUrl() ?>"><?= __('Create New Testimonial') ?></a>
+
+<table class="testimonial-table">
+    <thead>
+    <tr>
+        <th><?= __('Name') ?></th>
+        <th><?= __('Email') ?></th>
+        <th><?= __('Message') ?></th>
+        <th><?= __('Company') ?></th>
+        <th><?= __('Rating') ?></th>
+        <th><?= __('Image') ?></th>
+        <th><?= __('Status') ?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+    $testimonials = $block->getTestimonials();
+
+    if (empty($testimonials)) {
+        echo '<tr><td colspan="7" class="no-testimonials">' . __('No testimonials found.') . '</td></tr>';
+    } else {
+        foreach ($testimonials as $testimonial) {
+            ?>
+            <tr>
+                <td><?= htmlspecialchars($testimonial->getName()) ?></td>
+                <td><?= htmlspecialchars($testimonial->getEmail()) ?></td>
+                <td><?= htmlspecialchars($testimonial->getMessage()) ?></td>
+                <td><?= htmlspecialchars($testimonial->getCompany()) ?></td>
+                <td><?= htmlspecialchars($testimonial->getRating()) ?></td>
+                <td>
+                    <?php
+                    $imageFileName = $testimonial->getImage();
+                    if ($imageFileName):
+                        $imageUrl = $block->getBaseUrl() . 'pub/media/testimonial/image/' . $imageFileName;
+                        ?>
+                        <img src="<?= $imageUrl ?>" alt="<?= __('Testimonial Image') ?>" class="testimonial-image">
+                    <?php else: ?>
+                        <?= __('No Image') ?>
+                    <?php endif; ?>
+                </td>
+                <td><?= $testimonial->getStatus() ? __('Enable') : __('Disable') ?></td>
+            </tr>
+            <?php
+        }
+    }
+    ?>
+    </tbody>
+</table>
+
+<style>
+    .testimonial-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .testimonial-table th,
+    .testimonial-table td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    .testimonial-table th {
+        background-color: #f2f2f2;
+        color: #333;
+    }
+
+    .testimonial-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .testimonial-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .no-testimonials {
+        text-align: center;
+        font-weight: bold;
+        color: #777;
+        padding: 20px 0;
+    }
+
+    .testimonial-image {
+        max-width: 100px;
+        height: auto;
+        border-radius: 5px;
+    }
+</style>
+
