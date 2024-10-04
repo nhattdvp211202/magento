@@ -1,4 +1,10 @@
 <?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\ShippingRestrictions\Model;
 
@@ -7,7 +13,13 @@ use Magento\Ui\DataProvider\AbstractDataProvider;
 
 class DataProvider extends AbstractDataProvider
 {
+    /**
+     * @var array
+     */
     protected array $loadedData = [];
+    /**
+     * @var ResourceModel\Shipping\Collection
+     */
     protected $collection;
 
     /**
@@ -19,13 +31,14 @@ class DataProvider extends AbstractDataProvider
      * @param array $data
      */
     public function __construct(
-        string $name,
-        string $primaryFieldName,
-        string $requestFieldName,
+        string            $name,
+        string            $primaryFieldName,
+        string            $requestFieldName,
         CollectionFactory $shippingCollectionFactory,
-        array $meta = [],
-        array $data = []
-    ) {
+        array             $meta = [],
+        array             $data = []
+    )
+    {
         $this->collection = $shippingCollectionFactory->create();
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }

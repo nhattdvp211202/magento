@@ -12,8 +12,14 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
 class Collection extends AbstractCollection
 {
+    /**
+     * @var string
+     */
     protected $_idFieldName = 'rule_id';
 
+    /**
+     * @return void
+     */
     protected function _construct(): void
     {
         $this->_init(

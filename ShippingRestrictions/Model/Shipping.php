@@ -1,4 +1,10 @@
 <?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\ShippingRestrictions\Model;
 
@@ -8,30 +14,66 @@ use Magento\Rule\Model\AbstractModel;
 
 class Shipping extends AbstractModel
 {
+    /**
+     * @var string
+     */
     protected $_eventPrefix = 'tigren_shippingrestrictions';
+    /**
+     * @var string
+     */
     protected $_eventObject = 'rule';
+    /**
+     * @var \Magento\CatalogRule\Model\Rule\Condition\CombineFactory
+     */
     protected $condCombineFactory;
+    /**
+     * @var \Magento\SalesRule\Model\Rule\Condition\Product\CombineFactory
+     */
     protected $condProdCombineF;
+    /**
+     * @var array
+     */
     protected $validatedAddresses = [];
+    /**
+     * @var
+     */
     protected $_selectProductIds;
+    /**
+     * @var
+     */
     protected $_displayProductIds;
 
+    /**
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Data\FormFactory $formFactory
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param \Magento\CatalogRule\Model\Rule\Condition\CombineFactory $condCombineFactory
+     * @param \Magento\SalesRule\Model\Rule\Condition\Product\CombineFactory $condProdCombineF
+     * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
+     * @param \Magento\Framework\Data\Collection\AbstractDb|null $resourceCollection
+     * @param array $data
+     */
     public function __construct(
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
-        \Magento\Framework\Data\FormFactory $formFactory,
-        \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
-        \Magento\CatalogRule\Model\Rule\Condition\CombineFactory $condCombineFactory,
+        \Magento\Framework\Model\Context                               $context,
+        \Magento\Framework\Registry                                    $registry,
+        \Magento\Framework\Data\FormFactory                            $formFactory,
+        \Magento\Framework\Stdlib\DateTime\TimezoneInterface           $localeDate,
+        \Magento\CatalogRule\Model\Rule\Condition\CombineFactory       $condCombineFactory,
         \Magento\SalesRule\Model\Rule\Condition\Product\CombineFactory $condProdCombineF,
-        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
-        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
-        array $data = []
-    ) {
+        \Magento\Framework\Model\ResourceModel\AbstractResource        $resource = null,
+        \Magento\Framework\Data\Collection\AbstractDb                  $resourceCollection = null,
+        array                                                          $data = []
+    )
+    {
         $this->condCombineFactory = $condCombineFactory;
         $this->condProdCombineF = $condProdCombineF;
         parent::__construct($context, $registry, $formFactory, $localeDate, $resource, $resourceCollection, $data);
     }
 
+    /**
+     * @return void
+     */
     protected function _construct()
     {
         parent::_construct();
@@ -39,22 +81,37 @@ class Shipping extends AbstractModel
         $this->setIdFieldName('rule_id');
     }
 
+    /**
+     * @return \Magento\CatalogRule\Model\Rule\Condition\Combine|\Magento\Rule\Model\Condition\Combine
+     */
     public function getConditionsInstance()
     {
         return $this->condCombineFactory->create();
     }
 
+    /**
+     * @return \Magento\CatalogRule\Model\Rule\Condition\Combine|\Magento\Rule\Model\Action\Collection
+     */
     public function getActionsInstance()
     {
         return $this->condCombineFactory->create();
     }
 
+    /**
+     * @param $address
+     * @return bool
+     */
     public function hasIsValidForAddress($address)
     {
         $addressId = $this->_getAddressId($address);
         return isset($this->validatedAddresses[$addressId]) ? true : false;
     }
 
+    /**
+     * @param $address
+     * @param $validationResult
+     * @return $this
+     */
     public function setIsValidForAddress($address, $validationResult)
     {
         $addressId = $this->_getAddressId($address);
@@ -62,12 +119,20 @@ class Shipping extends AbstractModel
         return $this;
     }
 
+    /**
+     * @param $address
+     * @return false|mixed
+     */
     public function getIsValidForAddress($address)
     {
         $addressId = $this->_getAddressId($address);
         return isset($this->validatedAddresses[$addressId]) ? $this->validatedAddresses[$addressId] : false;
     }
 
+    /**
+     * @param $address
+     * @return mixed
+     */
     private function _getAddressId($address)
     {
         if ($address instanceof Address) {
@@ -76,16 +141,27 @@ class Shipping extends AbstractModel
         return $address;
     }
 
+    /**
+     * @param $formName
+     * @return string
+     */
     public function getConditionsFieldSetId($formName = '')
     {
         return $formName . 'rule_conditions_fieldset_' . $this->getId();
     }
 
+    /**
+     * @param $formName
+     * @return string
+     */
     public function getActionFieldSetId($formName = '')
     {
         return $formName . 'rule_actions_fieldset_' . $this->getId();
     }
 
+    /**
+     * @return array
+     */
     public function getMatchProductIds()
     {
         $productCollection = \Magento\Framework\App\ObjectManager::getInstance()->create(
@@ -110,6 +186,10 @@ class Shipping extends AbstractModel
         return $this->_selectProductIds;
     }
 
+    /**
+     * @param $args
+     * @return void
+     */
     public function callbackValidateProductCondition($args)
     {
         $product = clone $args['product'];
@@ -123,6 +203,9 @@ class Shipping extends AbstractModel
         }
     }
 
+    /**
+     * @return array
+     */
     protected function _getWebsitesMap()
     {
         $map = [];

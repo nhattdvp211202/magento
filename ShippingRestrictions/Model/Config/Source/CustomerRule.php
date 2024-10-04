@@ -13,13 +13,22 @@ use Magento\Framework\App\ResourceConnection;
 
 class CustomerRule implements OptionSourceInterface
 {
+    /**
+     * @var ResourceConnection
+     */
     protected $resourceConnection;
 
+    /**
+     * @param ResourceConnection $resourceConnection
+     */
     public function __construct(ResourceConnection $resourceConnection)
     {
         $this->resourceConnection = $resourceConnection;
     }
 
+    /**
+     * @return array
+     */
     public function toOptionArray()
     {
         // Lấy kết nối đến cơ sở dữ liệu

@@ -18,6 +18,9 @@ class ShippingMethods implements OptionSourceInterface
      */
     protected $scopeConfig;
 
+    /**
+     * @param ScopeConfigInterface $scopeConfig
+     */
     public function __construct(ScopeConfigInterface $scopeConfig)
     {
         $this->scopeConfig = $scopeConfig;
