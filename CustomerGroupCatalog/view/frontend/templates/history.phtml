@@ -1,0 +1,31 @@
+<?php
+/*
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
+
+/** @var \Tigren\CustomerGroupCatalog\Block\History\Index $block */
+$ruleHistory = $block->getRuleHistory();
+?>
+<table class="data-table">
+    <thead>
+    <tr>
+        <th><?php echo __('Order ID') ?></th>
+        <th><?php echo __('Customer ID') ?></th>
+        <th><?php echo __('Rule ID') ?></th>
+        <th><?php echo __('Created At') ?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($ruleHistory as $item): ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($item->getOrderId()) ?></td>
+            <td><?php echo $this->escapeHtml($item->getCustomerId()) ?></td>
+            <td><?php echo $this->escapeHtml($item->getRuleId()) ?></td>
+            <td><?php echo $this->escapeHtml($item->getCreatedAt()) ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
