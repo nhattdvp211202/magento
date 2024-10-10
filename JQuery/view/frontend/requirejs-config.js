@@ -1,7 +1,7 @@
 var config = {
     map: {
         '*': {
-            'Tigren_JQuery/js/my-widget': 'Tigren_JQuery/js/my-widget-mixin'
+            'custom/myToggleWidget': 'Tigren_JQuery/js/my-toggle-widget'
         }
     }
 };

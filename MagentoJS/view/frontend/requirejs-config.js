@@ -1,7 +1,7 @@
 var config = {
     map: {
         '*': {
-            'magentojs': 'Tigren_MagentoJS/js/example'
+            'theme/jsLayoutExample': 'Tigren_MagentoJS/js/jsLayoutExample'
         }
     }
 };

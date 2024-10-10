@@ -1,15 +1,33 @@
 type Query {
-    getTestimonials: [TestimonialOutput] @resolver(class: "Tigren\\Testimonial\\Model\\Resolver\\GetTestimonials")
+    testimonials: [Testimonial] @resolver(class: "Tigren\\Testimonial\\Model\\Resolver\\Testimonials")
 }
 
-type TestimonialOutput {
-    id: Int
-    name: String
-    email: String
-    message: String
+input TestimonialInput {
+    name: String!
+    email: String!
+    message: String!
     company: String
     rating: Int
     image: String
-    status: String
+    status: Boolean
+    customer_id: Int
+}
+
+type Mutation {
+    createTestimonial(input: TestimonialInput!): Testimonial @resolver(class: "Tigren\\Testimonial\\Model\\Resolver\\CreateTestimonial")
+    updateTestimonial(id: ID!, input: TestimonialInput!): Testimonial @resolver(class: "Tigren\\Testimonial\\Model\\Resolver\\UpdateTestimonial")
+    deleteTestimonial(id: ID!): Boolean @resolver(class: "Tigren\\Testimonial\\Model\\Resolver\\DeleteTestimonial")
+}
+
+type Testimonial {
+    id: ID!
+    name: String!
+    email: String!
+    message: String!
+    company: String
+    rating: Int
+    image: String
+    status: Boolean
     created_at: String
+    customer_id: Int
 }

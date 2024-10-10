@@ -6,8 +6,10 @@
   ~
   -->
 
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Tigren\Testimonial\Api\TestimonialRepositoryInterface" type="Tigren\Testimonial\Model\TestimonialRepository" />
+    <preference for="Tigren\Testimonial\Api\Data\TestimonialInterface" type="Tigren\Testimonial\Model\Testimonial" />
 
     <type name="Tigren\Testimonial\Controller\Adminhtml\Index\Save">
         <arguments>
@@ -27,8 +29,7 @@
         </arguments>
     </type>
 
-    <virtualType name="Tigren\Testimonial\Model\ResourceModel\Testimonial\Grid\Collection"
-                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <virtualType name="Tigren\Testimonial\Model\ResourceModel\Testimonial\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">testimonial</argument>
             <argument name="resourceModel" xsi:type="string">Tigren\Testimonial\Model\ResourceModel\Testimonial
@@ -58,5 +59,4 @@
             <argument name="imageUploader" xsi:type="object">Tigren\Testimonial\TestimonialImageUpload</argument>
         </arguments>
     </type>
-
 </config>
